@@ -1,0 +1,18 @@
+@* Blocks in a content area render with the partial view named after the block type. *@
+@model HeroBlock
+
+<section class="hero">
+    <h1>@Model.Heading</h1>
+    @if (!string.IsNullOrWhiteSpace(Model.Intro))
+    {
+        <p>@Model.Intro</p>
+    }
+    @if (Model.Image is not null)
+    {
+        <img src="@Url.ContentUrl(Model.Image)" alt="" />
+    }
+    @if (Model.ButtonLink is not null && !string.IsNullOrWhiteSpace(Model.ButtonText))
+    {
+        <p><a class="button" href="@Url.ContentUrl(Model.ButtonLink)">@Model.ButtonText</a></p>
+    }
+</section>

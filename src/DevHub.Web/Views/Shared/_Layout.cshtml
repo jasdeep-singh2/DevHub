@@ -1,0 +1,49 @@
+@model SitePageData
+@inject IContentLoader ContentLoader
+@{
+    // Top navigation: the start page's published children (Blog, case studies, services).
+    var navigation = ContentReference.IsNullOrEmpty(ContentReference.StartPage)
+        ? []
+        : ContentLoader.GetChildren<SitePageData>(ContentReference.StartPage).Where(p => p.VisibleInMenu).ToList();
+}
+<!DOCTYPE html>
+<html lang="@Model.Language?.Name">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(Model.MetaTitle ?? Model.Name) · DevHub</title>
+    @if (!string.IsNullOrWhiteSpace(Model.MetaDescription))
+    {
+        <meta name="description" content="@Model.MetaDescription" />
+    }
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 0; color: #1a1a1a; line-height: 1.6; }
+        header, main { max-width: 48rem; margin: 0 auto; padding: 1rem; }
+        header nav { display: flex; gap: 1.25rem; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 1rem; }
+        header a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; height: auto; }
+        .hero { padding: 2rem 0; }
+        .cta { background: #f3f4f6; padding: 1.5rem; border-radius: 0.5rem; margin: 2rem 0; }
+        .button { display: inline-block; background: #111; color: #fff; padding: 0.5rem 1rem; border-radius: 0.375rem; text-decoration: none; }
+        .muted { color: #666; }
+    </style>
+    @* Scripts/styles the CMS needs for on-page editing in the editor. *@
+    @Html.RequiredClientResources("Header")
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="@Url.ContentUrl(ContentReference.StartPage)"><strong>DevHub</strong></a>
+            @* Not "page": in Razor, @page is a directive. *@
+            @foreach (var item in navigation)
+            {
+                <a href="@Url.ContentUrl(item.ContentLink)">@item.Name</a>
+            }
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    @Html.RequiredClientResources("Footer")
+</body>
+</html>

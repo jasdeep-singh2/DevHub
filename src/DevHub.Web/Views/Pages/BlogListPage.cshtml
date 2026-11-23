@@ -1,0 +1,24 @@
+@model BlogListPage
+@inject IContentLoader ContentLoader
+@{
+    // GetChildren only returns published content for visitors; newest first.
+    var posts = ContentLoader.GetChildren<BlogPostPage>(Model.ContentLink)
+        .OrderByDescending(p => p.StartPublish)
+        .ToList();
+}
+
+<h1>@Model.Name</h1>
+<p class="muted" epi-property="@Model.Intro">@Model.Intro</p>
+
+@if (posts.Count == 0)
+{
+    <p>No posts yet.</p>
+}
+@foreach (var post in posts)
+{
+    <article>
+        <h2><a href="@Url.ContentUrl(post.ContentLink)">@post.Name</a></h2>
+        <p class="muted">@post.StartPublish?.ToString("d MMMM yyyy")</p>
+        <p>@post.Summary</p>
+    </article>
+}

@@ -1,0 +1,15 @@
+@model BlogPostPage
+
+<article>
+    <h1>@Model.Name</h1>
+    <p class="muted">@Model.StartPublish?.ToString("d MMMM yyyy")</p>
+    @if (Model.MainImage is not null)
+    {
+        <img src="@Url.ContentUrl(Model.MainImage)" alt="" />
+    }
+    @Html.PropertyFor(m => m.MainBody)
+    @if (Model.Tags?.Count > 0)
+    {
+        <p class="muted">Tags: @string.Join(", ", Model.Tags)</p>
+    }
+</article>

@@ -1,0 +1,23 @@
+@model CaseStudyPage
+
+<article>
+    <h1>@Model.Name</h1>
+    @if (!string.IsNullOrWhiteSpace(Model.Client))
+    {
+        <p class="muted">@Model.Client</p>
+    }
+    @if (Model.MainImage is not null)
+    {
+        <img src="@Url.ContentUrl(Model.MainImage)" alt="" />
+    }
+    <h2>Challenge</h2>
+    @Html.PropertyFor(m => m.Challenge)
+    <h2>Solution</h2>
+    @Html.PropertyFor(m => m.Solution)
+    <h2>Results</h2>
+    @Html.PropertyFor(m => m.Results)
+    @if (Model.Technologies?.Count > 0)
+    {
+        <p class="muted">Technologies: @string.Join(", ", Model.Technologies)</p>
+    }
+</article>

@@ -1,0 +1,10 @@
+@model CallToActionBlock
+
+<section class="cta">
+    <h2>@Model.Heading</h2>
+    @if (!string.IsNullOrWhiteSpace(Model.Text))
+    {
+        <p>@Model.Text</p>
+    }
+    <a class="button" href="@Url.ContentUrl(Model.ButtonLink)">@Model.ButtonText</a>
+</section>

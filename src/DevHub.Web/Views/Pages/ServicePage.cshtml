@@ -1,0 +1,6 @@
+@model ServicePage
+
+<h1>@Model.Name</h1>
+<p class="muted">@Model.Summary</p>
+@Html.PropertyFor(m => m.MainBody)
+@Html.PropertyFor(m => m.MainContentArea)

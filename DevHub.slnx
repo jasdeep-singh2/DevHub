@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DevHub.AppHost/DevHub.AppHost.csproj" />
+    <Project Path="src/DevHub.ServiceDefaults/DevHub.ServiceDefaults.csproj" />
+    <Project Path="src/DevHub.Web/DevHub.Web.csproj" />
+  </Folder>
+</Solution>
